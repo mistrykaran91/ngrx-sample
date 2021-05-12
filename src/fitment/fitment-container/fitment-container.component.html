@@ -1,0 +1,49 @@
+<form fxFlex="50" fxFlexOffset="22" fxLayoutGap="11px" fxLayoutAlign="center center" fxLayout="column"
+  [formGroup]="mainform">
+  <div></div>
+  <mat-form-field fxFlexAlign="center">
+    <mat-label>Years</mat-label>
+    <mat-select formControlName="year" (selectionChange)="onYearChange()">
+      <mat-option *ngFor="let year of years$ | async" [value]="year">{{year}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="mainform.get('year').hasError('required')">
+      Please select year
+    </mat-error>
+    <mat-hint *ngIf="!isValidYear && mainform.get('year').valid">
+      Please select year 2021 to get makes
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Makes</mat-label>
+    <mat-select formControlName="make" (selectionChange)="onMakeChange()">
+      <mat-option *ngFor="let make of makes$ | async" [value]="make">{{make}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="mainform.get('make').hasError('required')">
+      Please select make
+    </mat-error>
+    <mat-hint *ngIf="!isValidMake && mainform.get('make').valid">
+      Please select year Acura to get models
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Models</mat-label>
+    <mat-select formControlName="model" (selectionChange)="onModelChange()">
+      <mat-option *ngFor="let model of models$ | async" [value]="model">{{model}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="mainform.get('model').hasError('required')">
+      Please select model
+    </mat-error>
+    <mat-hint *ngIf="!isValidModel && mainform.get('model').valid">
+      Please select year RDX to get trim
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-selection-list fxFlex="100" *ngIf="trim$ | async as trims" #trim>
+    <mat-list-option *ngFor="let trim of trims">
+      {{trim}}
+    </mat-list-option>
+  </mat-selection-list>
+
+</form>
