@@ -1,3 +1,60 @@
-<hello name="{{ name }}"></hello>
+<div fxFlex="row" class="pad-22">
+    <mat-card class="example-card">
+        <mat-card-header>
+            Add Product
+        </mat-card-header>
 
-<app-fitment-container></app-fitment-container>
+        <mat-card-content>
+            <form novalidate [formGroup]="productForm">
+                <div fxLayout="column">
+
+                    <mat-form-field floatLabel="always">
+                        <input matInput formControlName="productName" placeholder="Product Name" />
+                    </mat-form-field>
+
+
+                    <mat-form-field floatLabel="always">
+                        <textarea matInput placeholder="Product Description" formControlName="description"></textarea>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="always">
+                        <input matInput type="number" placeholder="Price" formControlName="price" />
+                    </mat-form-field>
+
+
+                    <mat-form-field>
+                        <mat-label>Supplier</mat-label>
+                        <mat-select  formControlName="supplier">
+                            <mat-option *ngFor="let supplier of productSuppliers" [value]="supplier.id">
+                                {{ supplier.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-label>Category</mat-label>
+                    <mat-radio-group color="primary" name="category" fxLayoutGap="10px" formControlName="category">
+                        <mat-radio-button *ngFor="let category of productCategories" [value]="category.name">
+                            {{ category.name }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+
+                    <mat-checkbox color="primary" formControlName="sendCatalog">
+                        Product Catalog
+                    </mat-checkbox>
+                </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="button" mat-raised-button color="primary" [disabled]="!productForm?.valid">
+                Save
+            </button>
+
+            <button type="button" mat-raised-button color="warn">
+                Delete
+            </button>
+            <button type="button" mat-raised-button>
+                Cancel
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
